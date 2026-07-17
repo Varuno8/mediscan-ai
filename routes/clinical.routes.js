@@ -1,6 +1,7 @@
 
 import express from 'express';
 import * as service from '../services/dynamo.service.js';
+import { callLLM } from '../services/llm.js';
 
 const router = express.Router();
 
@@ -168,33 +169,14 @@ router.post('/process-voice', async (req, res) => {
             return res.status(400).json({ error: 'Transcript is required' });
         }
 
-        const llmApiKey = process.env.LLM_API_KEY;
-        const llmBaseUrl = process.env.LLM_BASE_URL || 'https://api.cerebras.ai/v1';
-        const llmModel = process.env.LLM_MODEL || 'llama3.1-8b';
+        const llmResult = await callLLM({
+            system: `You are a medical assistant analyzing voice-dictated patient information. Extract structured data and return ONLY valid JSON.
 
-        if (!llmApiKey) {
-            return res.status(500).json({ error: 'LLM API key not configured' });
-        }
-
-        // Process voice input through LLM
-        const aiResponse = await fetch(`${llmBaseUrl}/chat/completions`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${llmApiKey}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                model: llmModel,
-                messages: [
-                    {
-                        role: 'system',
-                        content: `You are a medical assistant analyzing voice-dictated patient information. Extract structured data and return ONLY valid JSON.
-                        
                         Output Format:
                         {
                             "chief_complaint": "Main complaint in brief",
                             "symptoms": [
-                                { "text": "symptom name", "severity": "mild/moderate/severe", "duration": "e.g. 3 days", "onset": "e.g. sudden/gradual", "confidenceScore": 85 }
+                                { "text": "symptom name", "severity": "mild/moderate/severe", "duration": "e.g. 3 days", "confidenceScore": 85 }
                             ],
                             "criticality": "Critical" | "Stable",
                             "criticality_reason": "Reason for assessment",
@@ -203,32 +185,19 @@ router.post('/process-voice', async (req, res) => {
                             "facility_name": "General Consultation",
                             "doctor_name": "AI Assistant"
                         }
-                        
+
                         Instructions:
-                        1. Extract ALL symptoms mentioned with details (severity, duration, onset)
+                        1. Extract ALL symptoms mentioned with details (severity, duration)
                         2. Assess criticality based on symptoms described
                         3. Determine appropriate department
                         4. Create a brief clinical summary
                         5. IMPORTANT: Translate ALL text fields (complaints, symptoms, summary) to ENGLISH, regardless of the input language.
-                        6. Return ONLY JSON, no additional text`
-                    },
-                    {
-                        role: 'user',
-                        content: `Voice Input: ${transcript}`
-                    }
-                ],
-                response_format: { type: "json_object" }
-            })
+                        6. Return ONLY JSON, no additional text`,
+            messages: [{ role: 'user', content: `Voice Input: ${transcript}` }],
+            jsonMode: true,
         });
-
-        if (!aiResponse.ok) {
-            const errorText = await aiResponse.text();
-            console.error('LLM processing failed:', errorText);
-            return res.status(500).json({ error: 'Failed to process voice input' });
-        }
-
-        const aiResult = await aiResponse.json();
-        let content = aiResult.choices[0]?.message?.content || '{}';
+        console.log(`[voice] LLM provider: ${llmResult.provider} (${llmResult.model})`);
+        let content = llmResult.text || '{}';
 
         const robustParse = (str) => {
             if (!str) return null;
@@ -278,7 +247,6 @@ router.post('/process-voice', async (req, res) => {
                     confidenceScore: s.confidenceScore || 75,
                     severity: s.severity || 'moderate',
                     duration: s.duration || 'not specified',
-                    onset: s.onset || 'not specified',
                     source: 'voice_llm',
                     rawText: s.text
                 })));

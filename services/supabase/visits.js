@@ -412,7 +412,6 @@ export const addSymptoms = async (visitId, symptoms) => {
         confidence_score: s.confidenceScore,
         severity: s.severity,
         duration: s.duration,
-        onset: s.onset,
         source: s.source,
         raw_text: s.rawText,
         created_at: new Date().toISOString()

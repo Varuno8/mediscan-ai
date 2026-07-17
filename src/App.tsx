@@ -23,6 +23,7 @@ import QueueList from "./pages/QueueList";
 import VoiceMode from "./pages/VoiceMode";
 import PatientIntake from "./pages/PatientIntake";
 import PublicHealthDashboard from "./pages/PublicHealthDashboard";
+import AIAnalytics from "./pages/AIAnalytics";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/voice" element={<VoiceMode />} />
               <Route path="/patient-intake" element={<PatientIntake />} />
               <Route path="/surveillance" element={<PublicHealthDashboard />} />
+              <Route path="/ai-analytics" element={<AIAnalytics />} />
 
               <Route path="/visit/:id" element={<VisitDetail />} />
               <Route path="/ddx" element={<DDXTool />} />

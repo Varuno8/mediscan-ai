@@ -9,7 +9,8 @@ import {
     FileText,
     FileClock,
     Settings,
-    Activity
+    Activity,
+    Brain
 } from "lucide-react";
 
 export function Sidebar() {
@@ -21,8 +22,9 @@ export function Sidebar() {
     const menuItems = [
         { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
         { icon: Siren, label: "Triage & Alerts", path: "/emergency/triage" },
-        { icon: Users, label: "Patients", path: "/patients" }, // Note: Check if this route exists
+        { icon: Users, label: "Patients", path: "/patients" },
         { icon: Upload, label: "Scan & Upload", path: "/camera" },
+        { icon: Brain, label: "AI Analytics", path: "/ai-analytics" },
         { icon: Activity, label: "Disease Surveillance", path: "/surveillance" },
         { icon: FileClock, label: "Logs", path: "/logs" },
         { icon: Settings, label: "Settings", path: "/settings" },
