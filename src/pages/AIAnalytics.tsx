@@ -729,7 +729,7 @@ export default function AIAnalytics() {
           {/* ═══ TAB 1 — Outbreak Detection ══════════════════════════════════ */}
           <TabsContent value="outbreak" className="space-y-4">
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">Pre-computed · AP OPD 2022–2026</Badge>
+              <Badge variant="outline" className="text-xs">Pre-computed · 10,045 AP OPD Visits (1,112 Facilities)</Badge>
               <span className="text-xs text-muted-foreground">EWMA control charts + chi-square spatial residuals</span>
             </div>
 

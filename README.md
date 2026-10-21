@@ -6,6 +6,16 @@ AI-assisted clinical triage and health intelligence platform built for public he
 - **Dataset:** 10,045 Andhra Pradesh outpatient (OPD) records from PHCs/UPHCs
 - **Analytics:** Outbreak detection, complaint prediction, clinical risk stratification, and treatment recommendations.
 
+#### Andhra Pradesh OPD Dataset Validation (10,045 Records)
+| Dimension | Verified Metric |
+|---|---|
+| **Total Recorded Encounters** | **10,045 OP visits** (`ap_hackathon_data- Worksheet.csv`) |
+| **Unique Patient Population** | 9,987 distinct patient IDs |
+| **Facility Breakdown** | 6,763 Primary Health Centres (PHCs) · 3,282 Urban PHCs (UPHCs) |
+| **Public Healthcare Facilities** | 1,112 public health facilities across Andhra Pradesh |
+| **District Distribution** | East Godavari (1,090), Krishna (1,007), West Godavari (917), Visakhapatnam (785), Guntur (745), Nellore (724), Vizianagaram (696), Srikakulam (659), Prakasam (601), Kurnool (473), Chittoor (397), Ananthapuramu (286), YSR Kadapa (261) |
+| **Clinical Schema** | 39 columns (vitals, chief complaints, severity, duration, onset, prescribed treatments, lab recommendations, test values) |
+
 ## Project info
 
 ## Deployment
