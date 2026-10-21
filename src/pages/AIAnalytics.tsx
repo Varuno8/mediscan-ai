@@ -714,7 +714,7 @@ export default function AIAnalytics() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground">AI Analytics</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            DiagNXT ML models trained on Andhra Pradesh OPD dataset — Outbreak Detection · Complaint Prediction · Risk Stratification · Treatment Advice
+            DiagNXT ML models trained on 10,045 Andhra Pradesh OPD records — Outbreak Detection · Complaint Prediction · Risk Stratification · Treatment Advice
           </p>
         </div>
 

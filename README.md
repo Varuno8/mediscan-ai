@@ -1,4 +1,10 @@
-# Welcome to your project
+# MediScan AI (DiagNXT)
+
+AI-assisted clinical triage and health intelligence platform built for public health facilities.
+
+### Clinical Decision Support & Intelligence
+- **Dataset:** 10,045 Andhra Pradesh outpatient (OPD) records from PHCs/UPHCs
+- **Analytics:** Outbreak detection, complaint prediction, clinical risk stratification, and treatment recommendations.
 
 ## Project info
 
